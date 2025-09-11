@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - tenjin_plugin (1.2.8):
+    - Flutter
+    - TenjinSDK (= 1.14.9)
+  - TenjinSDK (1.14.9)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - tenjin_plugin (from `.symlinks/plugins/tenjin_plugin/ios`)
+
+SPEC REPOS:
+  trunk:
+    - TenjinSDK
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  tenjin_plugin:
+    :path: ".symlinks/plugins/tenjin_plugin/ios"
+
+SPEC CHECKSUMS:
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  tenjin_plugin: ec17abb0b04de9c3745b1a545d86ce21dccddf27
+  TenjinSDK: 8b2c00c319d256853b929e275d556c027f613a71
+
+PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
+
+COCOAPODS: 1.16.2
