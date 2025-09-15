@@ -8,7 +8,13 @@ This exercise serves as a practical evaluation of the SDK's developer experience
 
 My process followed these steps, including the challenges encountered and the resolutions discovered along the way.
 
-### 1. Initial Project Setup & Gradle-Kotlin Incompatibility
+### 1. Prerequisite: Dashboard Setup & Key Retrieval
+
+Before any code can be written, the first step is to create an application within the Tenjin dashboard to obtain the necessary SDK Key. This presents the first point of friction in the onboarding flow, as the documentation jumps directly into code integration without first outlining this mandatory administrative step.
+
+For a cross-platform framework like Flutter, this also requires registering **both** an Android and an iOS application on the dashboard, as each platform uses a unique SDK Key that must be correctly implemented in the app's initialization logic.
+
+### 2. Initial Project Setup & Gradle-Kotlin Incompatibility
 
 After creating a new Flutter project and adding the `tenjin_sdk_flutter` dependency, the initial Android build failed with a Kotlin compilation error:
 
@@ -23,7 +29,7 @@ FAILURE: Build failed with an exception.
 
 **Diagnosis:** This error pointed to an incompatibility between the project's Gradle version and the Kotlin plugin, triggered by my local Flutter environment configuration. It served as the first environmental roadblock in the integration process.
 
-### 2. The Second Hurdle: JDK Environment Mismatch
+### 3. The Second Hurdle: JDK Environment Mismatch
 
 Upon resolving the initial Gradle issue, a new problem surfaced: the Android project required JDK 21. My system, however, was configured to default to JDK 17 via the `JAVA_HOME` variable in my `.zshrc` file.
 
@@ -32,7 +38,7 @@ Upon resolving the initial Gradle issue, a new problem surfaced: the Android pro
 * Even though I had JDK 21 installed and configured it within IntelliJ IDEA's Gradle settings, the shell's `JAVA_HOME` environment variable took precedence, causing the build to fail.
 * **Solution:** Removing the explicit `JAVA_HOME` export from `.zshrc` allowed the IDE's project-specific JDK configuration to take effect, finally enabling a successful build.
 
-### 3. The Mystery: Understanding the Data Flow
+### 4. The Mystery: Understanding the Data Flow
 
 With the application running, I implemented the `TenjinSDK.connect()` and event-tracking calls. I initially monitored the "Live Test Device Data" page on the Tenjin dashboard, but no events appeared. This led me to believe the data was not being received at all.
 
@@ -44,7 +50,7 @@ My initial assumption was incorrect. The issue wasn't that the events weren't be
 
 This revealed a much more significant issue than a testing inconvenience: without the proper permission, the SDK cannot differentiate between users.
 
-### 4. The Key Insight: `AD_ID` is Essential for User Attribution
+### 5. The Key Insight: `AD_ID` is Essential for User Attribution
 
 The root cause of the aggregated data was the missing `AD_ID` permission. The Tenjin SDK requires this permission to retrieve the unique Google Advertising ID (GAID) for each device.
 
@@ -58,7 +64,7 @@ The root cause of the aggregated data was the missing `AD_ID` permission. The Te
 
 This confirmed that the `AD_ID` permission is not just a requirement for the "Live Test" feature, but is **fundamental to the SDK's core functionality of user-level tracking and attribution**.
 
-### 5. The Third Hurdle (iOS): Thread Performance Warning
+### 6. The Third Hurdle (iOS): Thread Performance Warning
 
 After resolving the Android issues, I proceeded to test the integration on iOS. While the app built successfully and sent events correctly, Xcode's console produced a recurring performance warning during runtime:
 
