@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    final apiKey = Platform.isAndroid ? 'MHSWZJVZ4N7USYL9BZZBKY2TDVWVY9CC' : "BRBUDHDPRSZSDVZVXVRUYXS1QZDYJA5C";
+    final apiKey = Platform.isAndroid ? "YOUR_ANDROID_API_KEY_HERE" : "YOUR_IOS_API_KEY_HERE";
 
     TenjinSDK.instance.init(apiKey: apiKey);
     TenjinSDK.instance.optIn();
