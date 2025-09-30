@@ -94,6 +94,45 @@ Backtrace
 
 **Diagnosis:** This warning, known as a "priority inversion," indicates that the main UI thread (which runs at a high priority) is being forced to wait for work happening on a lower-priority background thread. While this is not a crash, it can lead to UI stutters or unresponsiveness. Since the warning appears after adding the SDK, it suggests that some of its initialization or networking work on iOS might be interacting with the main thread sub-optimally.
 
+### How to Run This Project
+
+1.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/komangsidhiartha/tenjin_exploratory_sample_flutter.git](https://github.com/komangsidhiartha/tenjin_exploratory_sample_flutter.git)
+    ```
+
+2.  **Navigate to the Project Directory**
+    ```bash
+    cd tenjin_exploratory_sample_flutter
+    ```
+
+3.  **Install Dependencies**
+    ```bash
+    flutter pub get
+    ```
+
+4.  **Configure Android `AD_ID` Permission**
+    * Open `android/app/src/main/AndroidManifest.xml`.
+    * Add the following line just before the `<application>` tag:
+        ```xml
+        <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+        ```
+
+5.  **Add Your Tenjin SDK Keys**
+    * Open `lib/main.dart`.
+    * Locate the SDK initialization logic and replace the placeholder keys with your actual keys from the Tenjin dashboard.
+        ```dart
+        // Example of where to place your keys
+        final apiKey = Platform.isAndroid ? "YOUR_ANDROID_API_KEY_HERE" : "YOUR_IOS_API_KEY_HERE";
+
+        TenjinSDK.connect(apiKey);
+        ```
+
+6.  **Run the Application**
+    ```bash
+    flutter run
+    ```
+
 ## Key Findings & Developer Experience (DX) Suggestions
 
 This investigation highlights three key areas where the developer onboarding experience can be enhanced:
